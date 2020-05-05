@@ -1,0 +1,126 @@
+ private void button9_Click(object sender, EventArgs e)
+        {
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+            Bitmap b2 = (Bitmap)pictureBox2.Image;
+
+            int r, g, b;
+           // int[,] maska = new int[3, 3];
+
+            dane.m1 = (int)numericUpDown1.Value;
+            dane.m2 = (int)numericUpDown2.Value;
+            dane.m3 = (int)numericUpDown3.Value;
+            dane.m4 = (int)numericUpDown4.Value;
+            dane.m5 = (int)numericUpDown5.Value;
+            dane.m6 = (int)numericUpDown6.Value;
+            dane.m7 = (int)numericUpDown7.Value;
+            dane.m8 = (int)numericUpDown8.Value;
+            dane.m9 = (int)numericUpDown9.Value;
+
+            int suma = 0;
+            Color k1, k2, k3, k4, k5, k6, k7, k8, k9;
+
+            suma = dane.m1 + dane.m2 + dane.m3 + dane.m4 + dane.m5 + dane.m6 + dane.m7 + dane.m8 + dane.m9;
+
+                for (int x = 1; x < szer -1; x++)
+                {
+                    for (int y = 1; y < wys -1; y++)
+                    {
+                        k1 = b1.GetPixel(x - 1, y - 1);
+                        k2 = b1.GetPixel(x, y - 1);
+                        k3 = b1.GetPixel(x + 1, y - 1);
+                        k4 = b1.GetPixel(x - 1, y);
+                        k5 = b1.GetPixel(x, y);
+                        k6 = b1.GetPixel(x + 1, y);
+                        k7 = b1.GetPixel(x - 1, y + 1);
+                        k8 = b1.GetPixel(x, y + 1);
+                        k9 = b1.GetPixel(x + 1, y + 1);
+
+                        r = k1.R * dane.m1 + k2.R * dane.m2 + k3.R * dane.m3 + k4.R * dane.m4 + k5.R * dane.m5 + k6.R * dane.m6 + k7.R * dane.m7 + k8.R * dane.m8 + k9.R * dane.m9;
+
+                        if (suma != 0) r = r / suma;
+                        if (r > 255) r = 255;
+                        if (r < 0) r = 0;
+
+                        g = k1.G * dane.m1 + k2.G * dane.m2 + k3.G * dane.m3 + k4.G * dane.m4 + k5.G * dane.m5 + k6.G * dane.m6 + k7.G * dane.m7 + k8.G * dane.m8 + k9.G * dane.m9;
+
+                        if (suma != 0) g = g / suma;
+                        if (g > 255) g = 255;
+                        if (g < 0) g = 0;
+
+                        b = k1.B * dane.m1 + k2.B * dane.m2 + k3.B * dane.m3 + k4.B * dane.m4 + k5.B * dane.m5 + k6.B * dane.m6 + k7.B * dane.m7 + k8.B * dane.m8 + k9.B * dane.m9;
+
+                        if (suma != 0) b = b / suma;
+                        if (b > 255) b = 255;
+                        if (b < 0) b = 0;
+
+                        b2.SetPixel(x, y, Color.FromArgb(r, g, b));
+                    }
+                }
+            pictureBox2.Refresh();
+        }
+
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = 1;
+            numericUpDown2.Value = 1;
+            numericUpDown3.Value = 1;
+            numericUpDown4.Value = 1;
+            numericUpDown5.Value = 1;
+            numericUpDown6.Value = 1;
+            numericUpDown7.Value = 1;
+            numericUpDown8.Value = 1;
+            numericUpDown9.Value = 1;
+        }
+
+        private void button35_Click(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = 1;
+            numericUpDown2.Value = 2;
+            numericUpDown3.Value = 1;
+            numericUpDown4.Value = 2;
+            numericUpDown5.Value = 4;
+            numericUpDown6.Value = 2;
+            numericUpDown7.Value = 1;
+            numericUpDown8.Value = 2;
+            numericUpDown9.Value = 1;
+        }
+
+        private void button36_Click(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = 0;
+            numericUpDown2.Value = 0;
+            numericUpDown3.Value = 0;
+            numericUpDown4.Value = 0;
+            numericUpDown5.Value = 1;
+            numericUpDown6.Value = -1;
+            numericUpDown7.Value = 0;
+            numericUpDown8.Value = 0;
+            numericUpDown9.Value = 0;
+        }
+
+        private void button37_Click(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = 1;
+            numericUpDown2.Value = 1;
+            numericUpDown3.Value = 1;
+            numericUpDown4.Value = 0;
+            numericUpDown5.Value = 0;
+            numericUpDown6.Value = 0;
+            numericUpDown7.Value = -1;
+            numericUpDown8.Value = -1;
+            numericUpDown9.Value = -1;
+        }
+
+        private void button38_Click(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = 1;
+            numericUpDown2.Value = 2;
+            numericUpDown3.Value = 1;
+            numericUpDown4.Value = 0;
+            numericUpDown5.Value = 0;
+            numericUpDown6.Value = 0;
+            numericUpDown7.Value = -1;
+            numericUpDown8.Value = -2;
+            numericUpDown9.Value = -1;
+        }

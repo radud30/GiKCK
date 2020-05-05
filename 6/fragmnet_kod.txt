@@ -1,0 +1,157 @@
+        int[] red = new int[256];
+        int[] green = new int[256];
+        int[] blue = new int[256];
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+            chart1.Visible = true;
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+
+            Color k;
+
+
+            for (int x = 0; x < szer; x++)
+            {
+                for (int y = 0; y < wys; y++)
+                {
+                    k = b1.GetPixel(x, y);
+                    red[k.R]++;
+                    green[k.G]++;
+                    blue[k.B]++;
+                }
+            }
+            chart1.Series["red"].Points.Clear();
+            chart1.Series["green"].Points.Clear();
+            chart1.Series["blue"].Points.Clear();
+            for (int i = 0; i < 256; i++)
+            {
+                chart1.Series["red"].Points.AddXY(i, red[i]);
+                chart1.Series["green"].Points.AddXY(i, green[i]);
+                chart1.Series["blue"].Points.AddXY(i, blue[i]);
+            }
+            chart1.Invalidate();
+        }
+
+
+        private int[] wyrownanie(int[] values, int size)
+        {
+            double minValue = 0;
+            for (int i = 0; i < 256; i++)
+            {
+                if (values[i] != 0)
+                {
+                    minValue = values[i];
+                    break;
+                }
+            }
+            int[] result = new int[256];
+            double sum = 0;
+            for (int i = 0; i < 256; i++)
+            {
+                sum += values[i];
+                result[i] = (int)(((sum - minValue) / (size - minValue)) * 255.0);
+            }
+
+            return result;
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            int[] LUTred = wyrownanie(red, pictureBox1.Image.Width * pictureBox1.Image.Height);
+            int[] LUTgreen = wyrownanie(green, pictureBox1.Image.Width * pictureBox1.Image.Height);
+            int[] LUTblue = wyrownanie(blue, pictureBox1.Image.Width * pictureBox1.Image.Height);
+
+            Bitmap b2 = (Bitmap)pictureBox2.Image;
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+            int[] red1 = new int[256];
+            int[] green1 = new int[256];
+            int[] blue1 = new int[256];
+            for (int x = 0; x < szer; x++)
+            {
+                for (int y = 0; y < wys; y++)
+                {
+                    Color k = b1.GetPixel(x, y);
+                    Color newk = Color.FromArgb(LUTred[k.R], LUTgreen[k.G], LUTblue[k.B]);
+                    b2.SetPixel(x, y, newk);
+                    red1[newk.R]++;
+                    green1[newk.G]++;
+                    blue1[newk.B]++;
+                }
+            }
+            pictureBox2.Refresh();
+            chart1.Series["red"].Points.Clear();
+            chart1.Series["green"].Points.Clear();
+            chart1.Series["blue"].Points.Clear();
+            for (int i = 0; i < 256; i++)
+            {
+                chart1.Series["red"].Points.AddXY(i, red1[i]);
+                chart1.Series["green"].Points.AddXY(i, green1[i]);
+                chart1.Series["blue"].Points.AddXY(i, blue1[i]);
+            }
+            chart1.Invalidate();
+        }
+
+        private int[] Skalowanie(int[] values)
+        {
+            int minValue = 0;
+            for (int i = 0; i < 256; i++)
+            {
+                if (values[i] != 0)
+                {
+                    minValue = i;
+                    break;
+                }
+            }
+            int maxValue = 255;
+            for (int i = 255; i >= 0; i--)
+            {
+                if (values[i] != 0)
+                {
+                    maxValue = i;
+                    break;
+                }
+            }
+            int[] result = new int[256];
+            double a = 255.0 / (maxValue - minValue);
+            for (int i = 0; i < 256; i++)
+            {
+                result[i] = (int)(a * (i - minValue));
+            }
+
+            return result;
+        }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            int[] LUTred = Skalowanie(red);
+            int[] LUTgreen = Skalowanie(green);
+            int[] LUTblue = Skalowanie(blue);
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+            Bitmap b2 = (Bitmap)pictureBox2.Image;
+            int[] red1 = new int[256];
+            int[] green1 = new int[256];
+            int[] blue1 = new int[256];
+            for (int x = 0; x < szer; x++)
+            {
+                for (int y = 0; y < wys; y++)
+                {
+                    Color k = b1.GetPixel(x, y);
+                    Color newk = Color.FromArgb(LUTred[k.R], LUTgreen[k.G], LUTblue[k.B]);
+                    b2.SetPixel(x, y, newk);
+                    red1[newk.R]++;
+                    green1[newk.G]++;
+                    blue1[newk.B]++;
+                }
+            }
+            pictureBox2.Refresh();
+            chart1.Series["red"].Points.Clear();
+            chart1.Series["green"].Points.Clear();
+            chart1.Series["blue"].Points.Clear();
+            for (int i = 0; i < 256; i++)
+            {
+                chart1.Series["red"].Points.AddXY(i, red1[i]);
+                chart1.Series["green"].Points.AddXY(i, green1[i]);
+                chart1.Series["blue"].Points.AddXY(i, blue1[i]);
+            }
+            chart1.Invalidate();
+        }

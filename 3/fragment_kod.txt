@@ -1,0 +1,93 @@
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+            Bitmap b2 = (Bitmap)pictureBox2.Image;
+            Color k;
+            int r, g, b;
+            for (int i = 0; i < szer; i++)
+            {
+                for (int j = 0; j < wys; j++)
+                {
+                    k = b1.GetPixel(i, j);
+                    r = 255 - k.R;
+                    g = 255 - k.G;
+                    b = 255 - k.B;
+
+                    k = Color.FromArgb(r, g, b);
+                    b2.SetPixel(i, j, k);
+                }
+            }
+            pictureBox2.Refresh();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+            Bitmap b2 = (Bitmap)pictureBox2.Image;
+            int _b = 127;
+            Color k;
+            int r, g, b;
+            for (int i = 0; i < szer; i++)
+            {
+                for (int j = 0; j < wys; j++)
+                {
+                    k = b1.GetPixel(i, j);
+
+                    r = k.R + _b;
+                    g = k.G + _b;
+                    b = k.B + _b;
+                    if (k.R + _b > 255)
+                    {
+                        r = 255;
+                    }
+                    if (k.G + _b > 255)
+                    {
+                        g = 255;
+                    }
+                    if (k.B + _b > 255)
+                    {
+                        b = 255;
+                    }
+
+                    b2.SetPixel(i, j, Color.FromArgb(r, g, b));
+
+                }
+            }
+            pictureBox2.Refresh();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Bitmap b1 = (Bitmap)pictureBox1.Image;
+            Bitmap b2 = (Bitmap)pictureBox2.Image;
+            int _b = 127;
+            Color k;
+            int r, g, b;
+            for (int i = 0; i < szer; i++)
+            {
+                for (int j = 0; j < wys; j++)
+                {
+                    k = b1.GetPixel(i, j);
+
+                    r = k.R - _b;
+                    g = k.G - _b;
+                    b = k.B - _b;
+                    if (k.R - _b < 0)
+                    {
+                        r = 0;
+                    }
+                    if (k.G - _b < 0)
+                    {
+                        g = 0;
+                    }
+                    if (k.B - _b < 0)
+                    {
+                        b = 0;
+                    }
+
+                    b2.SetPixel(i, j, Color.FromArgb(r, g, b));
+
+                }
+            }
+            pictureBox2.Refresh();
+        }
